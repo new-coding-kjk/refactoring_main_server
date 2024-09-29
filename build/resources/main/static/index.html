@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+id : <input type="text" id = "id"> <br>
+password : <input type="password" id = "password"> <br>
+name : <input type="text" id = "name"> <br>
+emain : <input type="text" id = "emain"> <br>
+phone : <input type="text" id = "phone"> <br>
+gender : <select name="gender" id="gender">
+    <option value="male">남자</option>
+    <option value="female">여자</option>
+</select> <br><br>
+
+<div id ="div">
+
+</div>
+<button id = "save">회원가입</button>
+<button id = "get">get 요청</button>
+</body>
+<script>
+    const save = document.getElementById('save');
+    const get = document.getElementById('get');
+    const div = document.getElementById('div');
+
+
+
+    save.addEventListener('click',() =>{
+
+        const username = document.getElementById('id').value;
+        const password = document.getElementById('password').value;
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('emain').value;
+        const phone = document.getElementById('phone').value;
+        const gender = document.getElementById('gender').value;
+
+        user = {
+            username : username,
+            name : name,
+            password : password,
+            email : email,
+            phone : phone,
+            gender : gender
+
+        }
+
+        console.log(user);
+
+
+        fetch('http://localhost:8000/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user)
+        })
+            .then(response => response.json()) // JSON 응답을 파싱
+            .then(data => alert("가입 완료"))   // 응답 데이터 출력
+            .catch(error => console.error('Error:', error));
+
+    })
+
+    get.addEventListener('click', function(){
+        fetch('http://localhost:8000/join', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.text()) // JSON 응답을 파싱
+            .then(data => div.innerHTML = `<h1>${data}</h1>`)   // 응답 데이터 출력
+            .catch(error => console.error('Error:', error));
+    });
+
+
+
+
+    // button3.addEventListener('click', function() {
+    //     fetch('http://localhost:8080/api/user/test', {
+    //     method: 'GET',
+    //     headers: {
+    //     'Content-Type': 'application/json'
+    //     }
+    //     })
+    //     .then(response => response.json()) // JSON 응답을 파싱
+    //     .then(data => div.innerHTML = `<h1>${data.username}</h1> <br>
+    //                                     <h2>${data.email}</h2>`)   // 응답 데이터 출력
+    //     .catch(error => console.error('Error:', error));
+    // });
+
+
+</script>
+</html>

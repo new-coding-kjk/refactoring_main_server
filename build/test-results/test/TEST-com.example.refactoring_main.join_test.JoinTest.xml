@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.refactoring_main.join_test.JoinTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-09-29T06:31:39" hostname="gimjong-gyuui-MacBookAir.local" time="0.38">
+  <properties/>
+  <testcase name="testJoin()" classname="com.example.refactoring_main.join_test.JoinTest" time="0.38"/>
+  <system-out><![CDATA[15:31:37.080 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.refactoring_main.join_test.JoinTest]: JoinTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:31:37.180 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.refactoring_main.RefactoringMainApplication for test class com.example.refactoring_main.join_test.JoinTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2024-09-29T15:31:37.537+09:00  INFO 38003 --- [    Test worker] c.e.refactoring_main.join_test.JoinTest  : Starting JoinTest using Java 17.0.11 with PID 38003 (started by gimjong-gyu in /Users/gimjong-gyu/Documents/GitHub/refactoring_main_server/refactoring_main)
+2024-09-29T15:31:37.539+09:00  INFO 38003 --- [    Test worker] c.e.refactoring_main.join_test.JoinTest  : No active profile set, falling back to 1 default profile: "default"
+2024-09-29T15:31:38.044+09:00  INFO 38003 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-29T15:31:38.074+09:00  INFO 38003 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 1 JPA repository interface.
+2024-09-29T15:31:38.325+09:00  INFO 38003 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-29T15:31:38.352+09:00  INFO 38003 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-09-29T15:31:38.369+09:00  INFO 38003 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-29T15:31:38.529+09:00  INFO 38003 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-29T15:31:38.544+09:00  INFO 38003 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-29T15:31:38.632+09:00  INFO 38003 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4aeaff64
+2024-09-29T15:31:38.633+09:00  INFO 38003 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+Hibernate: drop table if exists Member
+Hibernate: create table Member (gender tinyint check (gender between 0 and 1), role tinyint check (role between 0 and 1), id bigint not null auto_increment, email varchar(255), name varchar(255), password varchar(255), phone varchar(255), username varchar(255), primary key (id)) engine=InnoDB
+2024-09-29T15:31:39.139+09:00  INFO 38003 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-29T15:31:39.283+09:00  WARN 38003 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-29T15:31:39.339+09:00  INFO 38003 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2024-09-29T15:31:39.628+09:00  INFO 38003 --- [    Test worker] c.e.refactoring_main.join_test.JoinTest  : Started JoinTest in 2.327 seconds (process running for 3.515)
+##########MEMBER SAVED ###########
+2024-09-29T15:31:39.967+09:00  INFO 38003 --- [    Test worker] c.e.r.service.MemberService              : Member(id=null, username=user, password=1234, name=null, phone=123456789, email=user@gmail.com, role=ROLE_USER, gender=male)
+Hibernate: insert into Member (email,gender,name,password,phone,role,username) values (?,?,?,?,?,?,?)
+##########Find Member is ###### : Member(id=1, username=user, password=1234, name=null, phone=123456789, email=user@gmail.com, role=ROLE_USER, gender=male)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
