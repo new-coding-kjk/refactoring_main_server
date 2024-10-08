@@ -6,12 +6,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsMvcConfig implements WebMvcConfigurer {
+
+
+
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("*")
+                .allowedOriginPatterns("*")  // 클라이언트의 실제 출처
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("*")
-                .allowCredentials(true)
+                .allowedHeaders("Authorization", "Content-Type")
+                .exposedHeaders("Authorization","Set-Cookie")
+                .allowCredentials(true)  // 자격 증명을 허용
                 .maxAge(3000);
     }
 }
