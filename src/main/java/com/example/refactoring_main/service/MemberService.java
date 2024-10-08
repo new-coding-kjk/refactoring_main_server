@@ -1,42 +1,42 @@
 package com.example.refactoring_main.service;
 
-import com.example.refactoring_main.dto.MemberDTO;
 import com.example.refactoring_main.entity.Member;
 import com.example.refactoring_main.repository.MemberRepository;
 import com.example.refactoring_main.type.Role;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public Member save(MemberDTO memberDTO) {
-        if(memberDTO == null) {
+
+    // 회원 가입 서비스
+    public Member save(Member member) {
+        if(member == null) {
             return null;
         }
-        Member member = Member.builder()
-                .username(memberDTO.getUsername())
-                .password(memberDTO.getPassword())
-                .name(memberDTO.getName())
-                .role(Role.ROLE_USER)
-                .email(memberDTO.getEmail())
-                .gender(memberDTO.getGender())
-                .phone(memberDTO.getPhone())
-                .build();
 
-        System.out.println("##########MEMBER SAVED ###########");
-        log.info(member.toString());
+        log.info("##########MEMBER SAVED ###########");
+        member.setRole(Role.ROLE_USER);
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
 
-        memberRepository.save(member);
 
-        return member;
+        return memberRepository.save(member);
     }
 
+    // 아이디 중복 확인
+    public boolean chcDuplicatedByUsername (String username){
+        return memberRepository.existsByUsername(username);
+    }
 
 }
