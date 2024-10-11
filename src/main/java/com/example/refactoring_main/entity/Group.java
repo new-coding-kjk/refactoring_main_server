@@ -1,5 +1,6 @@
 package com.example.refactoring_main.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ public class Group {
 
     // 그룹의 멤버들 (1:N 관계)
     @OneToMany(mappedBy = "group")
+    @JsonManagedReference  // 순환 참조 방지를 위해 사용
     private Set<Member> members;
 
 

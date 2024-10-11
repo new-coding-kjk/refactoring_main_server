@@ -39,4 +39,14 @@ public class MemberService {
         return memberRepository.existsByUsername(username);
     }
 
+    // 프라이머리 키 기준으로 멤버 객체 찾아오기
+    public Member findById(Long id) {
+        return memberRepository.findById(id).orElse(null);
+    }
+
+    // 이름으로 멤버 객체 찾아오기
+    public Member findByUsername(String username) {
+        return memberRepository.findByUsername(username);
+    }
+
 }

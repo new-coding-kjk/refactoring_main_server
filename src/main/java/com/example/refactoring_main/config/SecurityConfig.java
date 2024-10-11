@@ -6,6 +6,7 @@ import com.example.refactoring_main.controller.MainController;
 import com.example.refactoring_main.handler.OAuth2Handler;
 import com.example.refactoring_main.jwt.JWTUtil;
 import com.example.refactoring_main.oauth.CustomerOAuth2MemberService;
+import com.example.refactoring_main.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -43,6 +44,7 @@ public class SecurityConfig {
 
     private final JWTUtil jwtUtil;
 
+    private final MemberService memberService;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -62,7 +64,7 @@ public class SecurityConfig {
 
         http
                 .addFilterBefore(new JwtFilter(jwtUtil), LoginFilter.class)
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil,memberService), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(corsFilter);
 
         http

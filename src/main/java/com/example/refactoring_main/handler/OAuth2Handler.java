@@ -2,7 +2,9 @@ package com.example.refactoring_main.handler;
 
 import com.example.refactoring_main.config.auth.CustomerDetails;
 import com.example.refactoring_main.controller.MainController;
+import com.example.refactoring_main.entity.Member;
 import com.example.refactoring_main.jwt.JWTUtil;
+import com.example.refactoring_main.service.MemberService;
 import com.example.refactoring_main.type.Role;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -26,6 +28,7 @@ import java.util.Iterator;
 public class OAuth2Handler implements AuthenticationSuccessHandler {
 
     private final JWTUtil jwtUtil;
+    private final MemberService memberService;
 
     private String tokenStr;
 
@@ -42,6 +45,7 @@ public class OAuth2Handler implements AuthenticationSuccessHandler {
         log.info("Authentication object: " + authentication.toString());
         log.info("Granted Authorities: " + authentication.getAuthorities());
 
+        Member member = memberService.findByUsername(username);
 
         // 사용자 권한(roles)들을 가져와 첫 번째 권한을 role 변수에 저장.
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -52,7 +56,7 @@ public class OAuth2Handler implements AuthenticationSuccessHandler {
         Role role = Role.valueOf(auth.getAuthority());  // 해당 권한의 이름을 가져옴
 
         // JWTUtil을 사용해 JWT 토큰을 생성. 10시간 동안 유효한 토큰을 생성.
-        String token = jwtUtil.createJwt(username, role, 60 * 60 * 10L);
+        String token = jwtUtil.createJwt(username, role, 60 * 60 * 10L,member.getId());
 
         // 응답 헤더에 생성된 토큰을 추가하여 클라이언트에 전달.
 //        response.addHeader("Authorization", "Bearer " + token);

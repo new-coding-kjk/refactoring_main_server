@@ -4,6 +4,7 @@ import com.example.refactoring_main.config.auth.CustomerDetails;
 import com.example.refactoring_main.config.auth.CustomerDetailsService;
 import com.example.refactoring_main.entity.Member;
 import com.example.refactoring_main.jwt.JWTUtil;
+import com.example.refactoring_main.service.MemberService;
 import com.example.refactoring_main.type.Role;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -31,11 +32,14 @@ import java.util.Map;
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
 
-    private final JWTUtil jwtUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+    private final JWTUtil jwtUtil;
+    private final MemberService memberService;
+
+    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, MemberService memberService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.memberService = memberService;
         setFilterProcessesUrl("/api/login");  // 로그인 경로를 /api/login 으로 설정
     }
 
@@ -82,8 +86,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         GrantedAuthority auth = iterator.next();  // 권한 목록 중 첫 번째 권한을 가져옴
         Role role = Role.valueOf(auth.getAuthority());  // 해당 권한의 이름을 가져옴
 
+        Member member = memberService.findByUsername(username);
         // JWTUtil을 사용해 JWT 토큰을 생성. 10시간 동안 유효한 토큰을 생성.
-        String token = jwtUtil.createJwt(username, role, 60 * 60 * 10L);
+        String token = jwtUtil.createJwt(username, role, 600 * 600 * 10L,member.getId());
 
         log.info("#######################token####################"+token);
 

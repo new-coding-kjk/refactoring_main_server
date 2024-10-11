@@ -23,6 +23,7 @@ public class GroupController {
     public ResponseEntity<String> createGroup(@RequestBody Group group) {
         String username = group.getLeader().getUsername();
         groupService.createGroup(group);
+        log.info(username);
 
         return ResponseEntity.ok("Group created successfully");
     }
@@ -35,11 +36,6 @@ public class GroupController {
         log.info("##### 컨트롤러 도착 #######");
 
        return groupService.findAllGroups(pageable);
-
-
-
-
-
     }
 
 

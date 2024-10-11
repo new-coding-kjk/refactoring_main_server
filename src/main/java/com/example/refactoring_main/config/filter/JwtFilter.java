@@ -31,10 +31,13 @@ public class JwtFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         Cookie[] cookies = request.getCookies();
 
+        log.info(authHeader);
+
         String username;
         Role role;
 
         log.info("$$$$$$$$$$$$$$$$$$$JWT 필터 도착$$$$$$$$$$$$$$$$$$$");
+
 
 
 //      쿠키가 null이 아닌지 먼저 확인
