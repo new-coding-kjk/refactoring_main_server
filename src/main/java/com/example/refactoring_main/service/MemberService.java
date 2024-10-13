@@ -30,7 +30,6 @@ public class MemberService {
         member.setRole(Role.ROLE_USER);
         member.setPassword(passwordEncoder.encode(member.getPassword()));
 
-
         return memberRepository.save(member);
     }
 

@@ -15,6 +15,9 @@ public class JoinController {
 
     private final MemberService memberService;
 
+
+
+    // 회원가입
     @PostMapping("/api/user/sign_up")
     public ResponseEntity<String> saveJoin(@RequestBody Member member){
 
@@ -33,12 +36,14 @@ public class JoinController {
         return ResponseEntity.ok("회원 가입이 완료 되었습니다.");
     }
 
+    // 중복확인
     @GetMapping("/api/user/duplicated/{username}")
     public ResponseEntity<Boolean> chcDuplicatedByUsername(@PathVariable String username) {
         return ResponseEntity.ok(memberService.chcDuplicatedByUsername(username));
     }
 
 
+    // 서버와의 요청
     @GetMapping("/join")
     public String join() {
         log.info("서버와 연결 되었는지 확인하는 요청");

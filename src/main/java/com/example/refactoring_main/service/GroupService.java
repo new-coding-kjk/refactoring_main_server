@@ -22,24 +22,21 @@ import java.util.List;
 public class GroupService {
     private final GroupRepository groupRepository;
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     // 방 만들기
     public Group createGroup(Group group) {
-        Member member = memberRepository.findByUsername(group.getLeader().getUsername());
-        if (member == null) {
-            throw new RuntimeException("Member is null");
-        }
+        log.info(group.getMembers().stream().findFirst().toString());
 
-        member.setGroup(group);
-        group.setLeader(member);
+        Member member =  memberService.findById(group.getMembers().stream().findFirst().get().getId());
+        member.setLeader(true);
+        Group savedGroup = groupRepository.save(group);
+        member.addGroup(savedGroup);
+        group.addMember(member);
+        
+        return savedGroup;
+    }
 
-        memberRepository.save(member);
-        return groupRepository.save(group);
-    }
-    // 내가 만든 방 존재 하는지 확인
-    public Boolean existsGroupByUsername(String username) {
-        return  groupRepository.existsByLeader_Username(username);
-    }
 
     // 방 리스트 갖고 오기
     public Page<Group> findAllGroups(Pageable pageable) {
@@ -47,9 +44,6 @@ public class GroupService {
         return groupRepository.findAll(pageable);
     }
 
-    // 내가 만든 방 삭제
-    public int deleteGroupByUsername(String username) {
-        return groupRepository.deleteByLeader_Username(username);
-    }
+
 
 }

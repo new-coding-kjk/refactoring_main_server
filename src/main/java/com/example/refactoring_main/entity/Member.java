@@ -2,11 +2,9 @@ package com.example.refactoring_main.entity;
 
 import com.example.refactoring_main.type.Gender;
 import com.example.refactoring_main.type.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -24,7 +22,9 @@ public class Member {
     private String password;
 
     private String name;
+    @Enumerated(EnumType.STRING)
     private Role role;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private String provider;
@@ -33,13 +33,17 @@ public class Member {
     @CreationTimestamp
     private Timestamp createDate;
 
+    private Boolean leader = false;
+
     @ManyToOne
     @JoinColumn(name = "group_id")
+    @JsonBackReference
+    @ToString.Exclude  // 순환 참조 방지
+    @EqualsAndHashCode.Exclude
     private Group group;
 
-
     @Builder
-    public Member(String username, String password, String name, Role role, Gender gender, String provider, Group group, String providerId, Timestamp createDate) {
+    public Member(String username, String password, String name, Role role, Gender gender, String provider, String providerId, Timestamp createDate, Boolean leader, Group group) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -47,7 +51,17 @@ public class Member {
         this.gender = gender;
         this.provider = provider;
         this.providerId = providerId;
-        this.group = group;
         this.createDate = createDate;
+        this.leader = leader;
+        this.group = group;
     }
+
+    public void addGroup(Group group) {
+        this.group = group;
+        if (!group.getMembers().contains(this)) {
+            group.getMembers().add(this);
+        }
+    }
+
+
 }
