@@ -11,7 +11,7 @@ public class AuthoritiesMethod {
             System.out.println("Authorities: " + authentication.getAuthorities()); // 권한 목록
             System.out.println("Is Authenticated: " + authentication.isAuthenticated()); // 인증 여부
         } else {
-            System.out.println("No authentication information found.");
+            System.out.println("No authentication information found.!!");
         }
     }
 }
