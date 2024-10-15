@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.refactoring_main.join_test.InterestedPartyTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-10-15T09:37:25" hostname="gimjong-gyuui-MacBookAir.local" time="0.341">
+  <properties/>
+  <testcase name="findInterestedParty()" classname="com.example.refactoring_main.join_test.InterestedPartyTests" time="0.341"/>
+  <system-out><![CDATA[18:37:23.679 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.refactoring_main.join_test.InterestedPartyTests]: InterestedPartyTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:37:23.722 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.refactoring_main.RefactoringMainApplication for test class com.example.refactoring_main.join_test.InterestedPartyTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2024-10-15T18:37:23.872+09:00  INFO 8933 --- [    Test worker] c.e.r.join_test.InterestedPartyTests     : Starting InterestedPartyTests using Java 17.0.11 with PID 8933 (started by gimjong-gyu in /Users/gimjong-gyu/Documents/GitHub/refactoring_main_server)
+2024-10-15T18:37:23.873+09:00  INFO 8933 --- [    Test worker] c.e.r.join_test.InterestedPartyTests     : No active profile set, falling back to 1 default profile: "default"
+2024-10-15T18:37:24.147+09:00  INFO 8933 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-15T18:37:24.209+09:00  INFO 8933 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58 ms. Found 3 JPA repository interfaces.
+2024-10-15T18:37:24.388+09:00  INFO 8933 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-15T18:37:24.411+09:00  INFO 8933 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-10-15T18:37:24.423+09:00  INFO 8933 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-15T18:37:24.529+09:00  INFO 8933 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-15T18:37:24.539+09:00  INFO 8933 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-15T18:37:24.604+09:00  INFO 8933 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@68c4a860
+2024-10-15T18:37:24.605+09:00  INFO 8933 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-15T18:37:25.055+09:00  INFO 8933 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-15T18:37:25.059+09:00  INFO 8933 --- [    Test worker] c.e.refactoring_main.config.CorsConfig   : ###############필터 작동####################
+2024-10-15T18:37:25.259+09:00  WARN 8933 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-15T18:37:25.267+09:00  INFO 8933 --- [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customerDetailsService
+2024-10-15T18:37:25.291+09:00  INFO 8933 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2024-10-15T18:37:25.505+09:00  INFO 8933 --- [    Test worker] c.e.r.join_test.InterestedPartyTests     : Started InterestedPartyTests in 1.727 seconds (process running for 2.159)
+Hibernate: select ip1_0.id,ip1_0.group_id,ip1_0.member_id from InterestedParty_Entity ip1_0 where ip1_0.member_id=?
+Hibernate: select g1_0.id,g1_0.groupName from Group_Entity g1_0 where g1_0.id=?
+Hibernate: select m1_0.id,m1_0.createDate,m1_0.gender,g1_0.id,g1_0.groupName,m1_0.name,m1_0.password,m1_0.provider,m1_0.providerId,m1_0.role,m1_0.username from Member_Entity m1_0 left join Group_Entity g1_0 on g1_0.id=m1_0.group_id where m1_0.id=?
+Hibernate: select g1_0.id,g1_0.groupName from Group_Entity g1_0 where g1_0.id=?
+Hibernate: select m1_0.group_id,m1_0.id,m1_0.createDate,m1_0.gender,m1_0.name,m1_0.password,m1_0.provider,m1_0.providerId,m1_0.role,m1_0.username from Member_Entity m1_0 where m1_0.group_id=?
+Group(id=2, groupName=샘플 파티2, members=[Member(id=2, username=kjk9104, password=$2a$10$Lh/1Sw9nWCkgPPiow5Imoe2PuN.DybJVCr5fhqkZQYm7MoxjcR6PC, name=null, role=ROLE_LEADER, gender=male, provider=null, providerId=null, createDate=2024-10-15 17:22:07.672827)])
+Member(id=3, username=wlsqmdl, password=$2a$10$SK3SXA94Tv/brFPXZlHbG.S.2I4KHmDn1z1QY.Iemu5fldqbjwxrW, name=null, role=ROLE_USER, gender=male, provider=null, providerId=null, createDate=2024-10-15 17:52:57.359032)
+Hibernate: select m1_0.group_id,m1_0.id,m1_0.createDate,m1_0.gender,m1_0.name,m1_0.password,m1_0.provider,m1_0.providerId,m1_0.role,m1_0.username from Member_Entity m1_0 where m1_0.group_id=?
+Group(id=1, groupName=샘플 파티, members=[Member(id=1, username=kjk1234, password=$2a$10$vR71b2b2i4BCD6LJPECla.rzutwtE1UUCu695Owe23CxQtgZscaW2, name=null, role=ROLE_LEADER, gender=male, provider=null, providerId=null, createDate=2024-10-15 17:21:41.896988)])
+Member(id=3, username=wlsqmdl, password=$2a$10$SK3SXA94Tv/brFPXZlHbG.S.2I4KHmDn1z1QY.Iemu5fldqbjwxrW, name=null, role=ROLE_USER, gender=male, provider=null, providerId=null, createDate=2024-10-15 17:52:57.359032)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

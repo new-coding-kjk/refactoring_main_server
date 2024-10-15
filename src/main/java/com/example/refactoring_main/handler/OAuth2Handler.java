@@ -56,7 +56,7 @@ public class OAuth2Handler implements AuthenticationSuccessHandler {
         Role role = Role.valueOf(auth.getAuthority());  // 해당 권한의 이름을 가져옴
 
         // JWTUtil을 사용해 JWT 토큰을 생성. 10시간 동안 유효한 토큰을 생성.
-        String token = jwtUtil.createJwt(username, role, 60 * 60 * 10L,member.getId());
+        String token = jwtUtil.createJwt(username, role, 60 * 60 * 10L,member.getId(), member.getGender());
 
         // 응답 헤더에 생성된 토큰을 추가하여 클라이언트에 전달.
 //        response.addHeader("Authorization", "Bearer " + token);

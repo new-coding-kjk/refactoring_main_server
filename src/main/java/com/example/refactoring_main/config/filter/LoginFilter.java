@@ -88,7 +88,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         Member member = memberService.findByUsername(username);
         // JWTUtil을 사용해 JWT 토큰을 생성. 10시간 동안 유효한 토큰을 생성.
-        String token = jwtUtil.createJwt(username, role, 600 * 600 * 10L,member.getId());
+        String token = jwtUtil.createJwt(username, role, 600 * 600 * 10L,member.getId(),member.getGender());
 
         log.info("#######################token####################"+token);
 

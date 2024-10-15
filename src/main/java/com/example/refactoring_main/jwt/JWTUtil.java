@@ -3,6 +3,7 @@ package com.example.refactoring_main.jwt;
 import com.example.refactoring_main.config.auth.CustomerDetails;
 import com.example.refactoring_main.config.auth.CustomerDetailsService;
 import com.example.refactoring_main.entity.Member;
+import com.example.refactoring_main.type.Gender;
 import com.example.refactoring_main.type.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -56,13 +57,14 @@ public class JWTUtil {
     }
 
     // 새로운 JWT 토큰을 생성하는 메서드. username, role, 만료 시간(ms)을 받아 JWT 토큰을 생성하고 반환.
-    public String createJwt(String username, Role role, Long expiredMs,Long id){
+    public String createJwt(String username, Role role, Long expiredMs, Long id, Gender gender){
         log.info(expiredMs.toString());
 
         return Jwts.builder()
                 .claim("username", username)  // 사용자 이름을 클레임에 추가
                 .claim("role", role) // 역할을 클레임에 추가
                 .claim("id", id)
+                .claim("gender", gender)
                 .issuedAt(new Date(System.currentTimeMillis()))  // 토큰 발행 시간 설정
                 .expiration(new Date(System.currentTimeMillis() + expiredMs))  // 만료 시간 설정
                 .signWith(SignatureAlgorithm.HS256,secretKey)  // SecretKey로 서명하여 토큰 보호

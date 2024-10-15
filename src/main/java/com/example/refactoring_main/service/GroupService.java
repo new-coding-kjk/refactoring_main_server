@@ -42,7 +42,6 @@ public class GroupService {
 
     // 방 리스트 갖고 오기
     public Page<Group> findAllGroups(Pageable pageable) {
-
         return groupRepository.findAll(pageable);
     }
 
