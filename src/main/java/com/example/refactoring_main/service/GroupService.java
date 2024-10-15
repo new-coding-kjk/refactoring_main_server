@@ -4,6 +4,7 @@ import com.example.refactoring_main.entity.Group;
 import com.example.refactoring_main.entity.Member;
 import com.example.refactoring_main.repository.GroupRepository;
 import com.example.refactoring_main.repository.MemberRepository;
+import com.example.refactoring_main.type.Role;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +30,11 @@ public class GroupService {
         log.info(group.getMembers().stream().findFirst().toString());
 
         Member member =  memberService.findById(group.getMembers().stream().findFirst().get().getId());
-        member.setLeader(true);
         Group savedGroup = groupRepository.save(group);
+        member.setRole(Role.ROLE_LEADER);
+
         member.addGroup(savedGroup);
-        group.addMember(member);
+        savedGroup.addMember(member);
         
         return savedGroup;
     }

@@ -1,7 +1,10 @@
 package com.example.refactoring_main.controller;
 
 
+import com.example.refactoring_main.config.auth.CustomerDetails;
 import com.example.refactoring_main.entity.Group;
+import com.example.refactoring_main.entity.Member;
+import com.example.refactoring_main.jwt.JWTUtil;
 import com.example.refactoring_main.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,24 +13,50 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 public class GroupController {
     private final GroupService groupService;
+    private final JWTUtil jwtUtil;
 
     // 방 만들기
     @PostMapping("/api/group")
-    public ResponseEntity<String> createGroup(@RequestBody Group group) {
+    public ResponseEntity<Map<String, Object>> createGroup(@RequestBody Group group) {
         log.info("##### 파티 만들기 도착 #######");
         log.info(group.toString());
+        Map<String, Object> result = new HashMap<>();
 
-        groupService.createGroup(group);
 
 
-        return ResponseEntity.ok("Group created successfully");
+
+        Group findGroup = groupService.createGroup(group);
+
+        Member member = findGroup.getMembers().stream().findFirst().get();
+        log.info(member.toString());
+        String token = jwtUtil.createJwt(member.getUsername(),member.getRole(),600 * 600 * 10L, member.getId());
+        jwtUtil.updateSecurityContext(member);
+
+        result.put("message", "성공적으로 만들었습니다.");
+        result.put("token", "Bearer "+token);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            System.out.println("Name: " + authentication.getName()); // 사용자 이름
+            System.out.println("Authorities: " + authentication.getAuthorities()); // 권한 목록
+            System.out.println("Is Authenticated: " + authentication.isAuthenticated()); // 인증 여부
+        } else {
+            System.out.println("No authentication information found.");
+        }
+
+        return ResponseEntity.ok(result);
     }
 
     // 방 리스트 갖고 오기

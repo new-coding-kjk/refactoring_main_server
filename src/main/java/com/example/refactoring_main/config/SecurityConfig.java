@@ -6,6 +6,7 @@ import com.example.refactoring_main.controller.MainController;
 import com.example.refactoring_main.handler.OAuth2Handler;
 import com.example.refactoring_main.jwt.JWTUtil;
 import com.example.refactoring_main.oauth.CustomerOAuth2MemberService;
+import com.example.refactoring_main.repository.MemberRepository;
 import com.example.refactoring_main.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -71,9 +72,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/main").hasRole("USER")
                         .requestMatchers("/api/group").hasRole("USER")
-                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/api/user/**").permitAll()
                         .requestMatchers("/login/oauth2/**").permitAll()
-                        .anyRequest().permitAll());
+                        .requestMatchers("/join").permitAll()
+                        .anyRequest().authenticated());
 
 
 //        http

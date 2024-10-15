@@ -33,7 +33,6 @@ public class Member {
     @CreationTimestamp
     private Timestamp createDate;
 
-    private Boolean leader = false;
 
     @ManyToOne
     @JoinColumn(name = "group_id")
@@ -43,7 +42,7 @@ public class Member {
     private Group group;
 
     @Builder
-    public Member(String username, String password, String name, Role role, Gender gender, String provider, String providerId, Timestamp createDate, Boolean leader, Group group) {
+    public Member(String username, String password, String name, Role role, Gender gender, String provider, String providerId, Timestamp createDate, Group group) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -52,7 +51,6 @@ public class Member {
         this.provider = provider;
         this.providerId = providerId;
         this.createDate = createDate;
-        this.leader = leader;
         this.group = group;
     }
 

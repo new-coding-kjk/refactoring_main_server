@@ -1,5 +1,8 @@
 package com.example.refactoring_main.jwt;
 
+import com.example.refactoring_main.config.auth.CustomerDetails;
+import com.example.refactoring_main.config.auth.CustomerDetailsService;
+import com.example.refactoring_main.entity.Member;
 import com.example.refactoring_main.type.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -7,8 +10,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Component;
+import org.springframework.security.core.Authentication;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -22,6 +29,8 @@ import java.util.Map;
 public class JWTUtil {
 
     private SecretKey secretKey;
+
+    private CustomerDetailsService customerDetailsService;
 
 
     public JWTUtil(@Value("${spring.jwt.secret}") String secret) {
@@ -60,6 +69,13 @@ public class JWTUtil {
                 .compact();  // 최종적으로 JWT를 압축하여 문자열로 반환
     }
 
+    public void updateSecurityContext(Member member) {
+        CustomerDetails customOAuth2User = new CustomerDetails(member);
+
+        Authentication authToken = new UsernamePasswordAuthenticationToken(customOAuth2User, null, customOAuth2User.getAuthorities());
+
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+    }
 
 
 }
