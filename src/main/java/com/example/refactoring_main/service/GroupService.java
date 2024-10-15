@@ -46,5 +46,9 @@ public class GroupService {
     }
 
 
+    // 내 방 정보 갖고 오기
+    public Group findGroupByMembersId(Long id) {
+        return groupRepository.findByMembersId(id).orElse(null);
+    }
 
 }

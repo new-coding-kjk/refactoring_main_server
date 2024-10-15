@@ -10,4 +10,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     public Member findByUsername(String username);
 
+
 }

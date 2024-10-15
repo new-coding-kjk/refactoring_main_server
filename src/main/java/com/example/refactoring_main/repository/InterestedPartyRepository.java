@@ -8,4 +8,6 @@ import java.util.List;
 public interface InterestedPartyRepository extends JpaRepository<InterestedParty, Long> {
 
     public List<InterestedParty> findAllByMemberId(Long memberId);
+
+    public List<InterestedParty> findAllByGroupId(Long groupId);
 }

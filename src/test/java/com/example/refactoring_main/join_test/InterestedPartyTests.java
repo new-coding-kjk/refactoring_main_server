@@ -25,4 +25,14 @@ public class InterestedPartyTests {
             System.out.println(interestedParty1.getMember().toString());
         }
     }
+
+    @Test
+    public void findInterestedPartyList() {
+        List<InterestedParty> interestedParty = interestedPartyRepository.findAllByGroupId(1L);
+        for (InterestedParty interestedParty1 : interestedParty) {
+            System.out.println("####");
+            System.out.println(interestedParty1.getGroup().toString());
+            System.out.println(interestedParty1.getMember().toString());
+        }
+    }
 }

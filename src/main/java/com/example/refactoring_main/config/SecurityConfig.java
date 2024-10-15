@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -73,7 +74,8 @@ public class SecurityConfig {
                         .requestMatchers("/main").hasRole("USER")
                         .requestMatchers("api/group/list/**").hasAnyRole("LEADER","USER")
                         .requestMatchers("/api/group/**").hasRole("USER")
-                        .requestMatchers("/api/interested/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST,"/api/interested/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET,"/api/interested/**").hasRole("LEADER")
                         .requestMatchers("/api/user/**").permitAll()
                         .requestMatchers("/login/oauth2/**").permitAll()
                         .requestMatchers("/join").permitAll()

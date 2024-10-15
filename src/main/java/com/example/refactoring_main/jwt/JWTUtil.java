@@ -2,6 +2,7 @@ package com.example.refactoring_main.jwt;
 
 import com.example.refactoring_main.config.auth.CustomerDetails;
 import com.example.refactoring_main.config.auth.CustomerDetailsService;
+import com.example.refactoring_main.entity.Group;
 import com.example.refactoring_main.entity.Member;
 import com.example.refactoring_main.type.Gender;
 import com.example.refactoring_main.type.Role;
