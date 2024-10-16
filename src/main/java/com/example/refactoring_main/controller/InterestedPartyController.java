@@ -19,7 +19,7 @@ public class InterestedPartyController {
     private final InterestedPartyService interestedPartyService;
     private final GroupService groupService;
 
-
+    // 신청 하기
     @PostMapping("/api/interested")
     public ResponseEntity<String> createInterestedParty(@RequestBody InterestedParty interestedParty) {
 
